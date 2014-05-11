@@ -73,6 +73,13 @@ php::module{ "imagick": }
 php::module{ "mcrypt": }
 php::module{ "mysql": }
 
+# Install composer
+exec { "install_composer":
+	command => "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin",
+}
+
+Package[ "curl" ] -> Exec[ "install_composer" ]
+
 # Install database
 case $database {
 	"mysql" : {
