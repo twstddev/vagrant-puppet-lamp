@@ -64,6 +64,15 @@ apache::vhost{ "default":
 
 apache::module{ "rewrite": }
 
+# Install php
+class { "php":
+	service => "apache",
+}
+
+php::module{ "imagick": }
+php::module{ "mcrypt": }
+php::module{ "mysql": }
+
 # Install database
 #case $database {
 	#"mongodb" : {
