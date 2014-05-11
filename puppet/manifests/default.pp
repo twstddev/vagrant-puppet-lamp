@@ -74,14 +74,25 @@ php::module{ "mcrypt": }
 php::module{ "mysql": }
 
 # Install database
-#case $database {
-	#"mongodb" : {
-		#class { "::mongodb::server":
-			#auth => true,
-		#}
-		#mongodb::db { "app":
-			#user => "root",
-			#password => "root",
-		#}
-	#}
-#}
+case $database {
+	"mysql" : {
+		class { "::mysql::server": }
+		class { "::mysql::client": }
+		mysql::db { "app":
+			user => "app",
+			password => "app",
+			host => "localhost",
+			grant => [ "ALL" ],
+		}
+	}
+
+	"mongodb" : {
+		class { "::mongodb::server":
+			auth => true,
+		}
+		mongodb::db { "app":
+			user => "root",
+			password => "root",
+		}
+	}
+}
