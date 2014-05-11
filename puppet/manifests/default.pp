@@ -33,9 +33,36 @@ package { "git":
 	ensure => "present",
 }
 
+package { "build-essential":
+	ensure => "present",
+}
+
+package { "python-software-properties":
+	ensure => "present",
+}
+
+package { "imagemagick":
+	ensure => "present",
+}
+
 package { "curl":
 	ensure => "present",
 }
+
+# Install apache
+class { "apache": }
+
+apache::vhost{ "default":
+	docroot => "/var/www/app",
+	directory => "/var/www/app",
+	server_name => false,
+	priority => "",
+	directory_allow_override => "All",
+	directory_options => "Indexes FollowSymLinks MultiViews",
+	template => "apache/virtualhost/vhost.conf.erb",
+}
+
+apache::module{ "rewrite": }
 
 # Install database
 #case $database {
