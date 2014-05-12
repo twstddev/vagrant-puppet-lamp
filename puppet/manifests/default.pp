@@ -78,7 +78,7 @@ exec { "install_composer":
 	command => "curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin",
 }
 
-Package[ "curl" ] -> Exec[ "install_composer" ]
+Class[ "php" ] -> Exec[ "install_composer" ]
 
 # Install database
 case $database {
