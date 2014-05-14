@@ -49,6 +49,10 @@ package { "curl":
 	ensure => "present",
 }
 
+package { [ "sqlite3", "libsqlite3-dev" ]:
+	ensure => "present",
+}
+
 # Install apache
 class { "apache": }
 
@@ -72,6 +76,7 @@ class { "php":
 php::module{ "imagick": }
 php::module{ "mcrypt": }
 php::module{ "mysql": }
+php::module{ "sqlite": }
 
 # Install composer
 exec { "install_composer":
